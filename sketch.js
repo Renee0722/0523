@@ -46,7 +46,7 @@ function draw() {
     for (let i = 0; i < mouthPoints.length; i++) {
       const idx = mouthPoints[i];
       const [x, y] = keypoints[idx];
-      vertex(width - x, y);
+      vertex(x, y); // 直接用 x, y
     }
     endShape(CLOSE);
 
@@ -58,7 +58,7 @@ function draw() {
     for (let i = 0; i < customLinePoints.length; i++) {
       const idx = customLinePoints[i];
       const [x, y] = keypoints[idx];
-      vertex(width - x, y);
+      vertex(x, y); // 直接用 x, y
     }
     endShape();
 
@@ -70,7 +70,7 @@ function draw() {
     for (let i = 0; i < leftEyePoints.length; i++) {
       const idx = leftEyePoints[i];
       const [x, y] = keypoints[idx];
-      vertex(width - x, y);
+      vertex(x, y); // 直接用 x, y
     }
     endShape(CLOSE);
 
@@ -82,7 +82,7 @@ function draw() {
     for (let i = 0; i < rightEyePoints.length; i++) {
       const idx = rightEyePoints[i];
       const [x, y] = keypoints[idx];
-      vertex(width - x, y);
+      vertex(x, y); // 直接用 x, y
     }
     endShape(CLOSE);
   }
