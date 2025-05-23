@@ -23,7 +23,7 @@ function modelReady() {
 }
 
 function draw() {
-  // 先將畫布座標系水平翻轉
+  // 畫布鏡像
   push();
   translate(width, 0);
   scale(-1, 1);
@@ -31,6 +31,16 @@ function draw() {
 
   if (predictions.length > 0) {
     const keypoints = predictions[0].scaledMesh;
+
+    // 畫出所有臉部特徵點
+    fill(0, 255, 0);
+    noStroke();
+    for (let i = 0; i < keypoints.length; i++) {
+      const [x, y] = keypoints[i];
+      ellipse(width - x, y, 5, 5); // 鏡像處理
+    }
+
+    // 畫紅色粗線串接指定點
     stroke(255, 0, 0);
     strokeWeight(10);
     noFill();
@@ -38,7 +48,6 @@ function draw() {
       const p1 = keypoints[points[i]];
       const p2 = keypoints[points[i + 1]];
       if (p1 && p2) {
-        // 將 x 座標做鏡像處理
         line(width - p1[0], p1[1], width - p2[0], p2[1]);
       }
     }
