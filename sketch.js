@@ -38,53 +38,79 @@ function draw() {
   if (predictions.length > 0) {
     const keypoints = predictions[0].scaledMesh;
 
-    // 畫嘴巴外圈
+    // 嘴巴外圈造型：紅色粗線+半透明填色
+    fill(255, 0, 0, 80); // 半透明紅色
     stroke(255, 0, 0);
     strokeWeight(10);
-    noFill();
     beginShape();
     for (let i = 0; i < mouthPoints.length; i++) {
       const idx = mouthPoints[i];
       const [x, y] = keypoints[idx];
-      vertex(x, y); // 直接用 x, y
+      vertex(x, y);
     }
     endShape(CLOSE);
 
-    // 畫自訂陣列的紅色粗線
-    stroke(255, 0, 0);
-    strokeWeight(10);
+    // 自訂線條造型：黃色線
+    stroke(255, 255, 0);
+    strokeWeight(8);
     noFill();
     beginShape();
     for (let i = 0; i < customLinePoints.length; i++) {
       const idx = customLinePoints[i];
       const [x, y] = keypoints[idx];
-      vertex(x, y); // 直接用 x, y
+      vertex(x, y);
     }
     endShape();
 
-    // 畫左眼外圈（綠色）
+    // 左眼造型：綠色線+白色填色
+    fill(255, 255, 255, 180);
     stroke(0, 255, 0);
     strokeWeight(6);
-    noFill();
     beginShape();
     for (let i = 0; i < leftEyePoints.length; i++) {
       const idx = leftEyePoints[i];
       const [x, y] = keypoints[idx];
-      vertex(x, y); // 直接用 x, y
+      vertex(x, y);
     }
     endShape(CLOSE);
 
-    // 畫右眼外圈（藍色）
+    // 左眼瞳孔（圓形）
+    let lx = 0, ly = 0;
+    for (let i = 0; i < leftEyePoints.length; i++) {
+      const idx = leftEyePoints[i];
+      lx += keypoints[idx][0];
+      ly += keypoints[idx][1];
+    }
+    lx /= leftEyePoints.length;
+    ly /= leftEyePoints.length;
+    fill(0, 180, 0);
+    noStroke();
+    ellipse(lx, ly, 18, 18);
+
+    // 右眼造型：藍色線+白色填色
+    fill(255, 255, 255, 180);
     stroke(0, 0, 255);
     strokeWeight(6);
-    noFill();
     beginShape();
     for (let i = 0; i < rightEyePoints.length; i++) {
       const idx = rightEyePoints[i];
       const [x, y] = keypoints[idx];
-      vertex(x, y); // 直接用 x, y
+      vertex(x, y);
     }
     endShape(CLOSE);
+
+    // 右眼瞳孔（圓形）
+    let rx = 0, ry = 0;
+    for (let i = 0; i < rightEyePoints.length; i++) {
+      const idx = rightEyePoints[i];
+      rx += keypoints[idx][0];
+      ry += keypoints[idx][1];
+    }
+    rx /= rightEyePoints.length;
+    ry /= rightEyePoints.length;
+    fill(0, 0, 180);
+    noStroke();
+    ellipse(rx, ry, 18, 18);
   }
   pop();
 }
