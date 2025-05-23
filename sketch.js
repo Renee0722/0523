@@ -38,7 +38,8 @@ function draw() {
       const p1 = keypoints[points[i]];
       const p2 = keypoints[points[i + 1]];
       if (p1 && p2) {
-        line(p1[0], p1[1], p2[0], p2[1]);
+        // 將 x 座標做鏡像處理
+        line(width - p1[0], p1[1], width - p2[0], p2[1]);
       }
     }
   }
