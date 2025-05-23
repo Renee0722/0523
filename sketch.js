@@ -111,39 +111,6 @@ function draw() {
     fill(0, 0, 180);
     noStroke();
     ellipse(rx, ry, 18, 18);
-
-    // ====== 加入黑色眼睫毛 ======
-    // 以左眼和右眼外圈點為基礎，向外延伸短線段
-    drawEyelashes(leftEyePoints, keypoints, 15);
-    drawEyelashes(rightEyePoints, keypoints, 15);
   }
   pop();
-}
-
-// 畫眼睫毛的輔助函式
-function drawEyelashes(eyePoints, keypoints, len = 15) {
-  stroke(0);
-  strokeWeight(3);
-  for (let i = 0; i < eyePoints.length; i++) {
-    const idx = eyePoints[i];
-    const prevIdx = eyePoints[(i - 1 + eyePoints.length) % eyePoints.length];
-    const nextIdx = eyePoints[(i + 1) % eyePoints.length];
-    const [x, y] = keypoints[idx];
-    const [px, py] = keypoints[prevIdx];
-    const [nx, ny] = keypoints[nextIdx];
-
-    // 取前後點的中點，計算法線方向
-    const dx = nx - px;
-    const dy = ny - py;
-    // 法線向量（單位向量）
-    const mag = Math.sqrt(dx * dx + dy * dy);
-    const nxn = -dy / mag;
-    const nyn = dx / mag;
-
-    // 眼睫毛終點
-    const ex = x + nxn * len;
-    const ey = y + nyn * len;
-
-    line(x, y, ex, ey);
-  }
 }
