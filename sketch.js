@@ -23,6 +23,10 @@ function modelReady() {
 }
 
 function draw() {
+  // 先將畫布座標系水平翻轉
+  push();
+  translate(width, 0);
+  scale(-1, 1);
   image(video, 0, 0, width, height);
 
   if (predictions.length > 0) {
@@ -38,4 +42,5 @@ function draw() {
       }
     }
   }
+  pop();
 }
